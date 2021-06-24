@@ -22,6 +22,16 @@
 		},
 		{
 			"type": "shell",
+			"label": "npm macInstall",
+			"command": "rm -rf node_modules/sharp && npm install"
+		},
+		{
+			"type": "shell",
+			"label": "npm winProdInstall",
+			"command": "rm -rf node_modules/sharp && npm install --production --arch=ia32 --platform=win32"
+		},
+		{
+			"type": "shell",
 			"label": "npm prune",
 			"command": "npm prune --production",
 			"dependsOn": "npm build",
