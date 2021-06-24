@@ -1,0 +1,12 @@
+{
+  "bindings": [
+    {
+      "name": "createThumbnailMsg",
+      "type": "serviceBusTrigger",
+      "direction": "in",
+      "queueName": "thumbnailqueue",
+      "connection": "emilstazure101_SERVICEBUS"
+    }
+  ],
+  "scriptFile": "../dist/serviceBusCreateThumbnail/index.js"
+}

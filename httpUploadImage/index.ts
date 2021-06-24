@@ -1,6 +1,7 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions";
 import { BlockBlobClient } from "@azure/storage-blob";
 import * as uuid from "uuid";
+import { CreateThumbnailMessage, ImageDbItemType } from "../common/types";
 import { jsonResponse } from "../common/util";
 
 const httpTrigger: AzureFunction = async function (
@@ -25,9 +26,13 @@ const httpTrigger: AzureFunction = async function (
 
   await blobClient.uploadData(body);
 
-  const returnValue = { id, uri: blobClient.url };
+  const returnValue: ImageDbItemType = { id, uri: blobClient.url };
 
   context.bindings.outputDocument = returnValue;
+  context.bindings.outputThumbnailMessage = {
+    ...returnValue,
+    blobName: blobClient.name,
+  } as CreateThumbnailMessage;
 
   return jsonResponse(201, returnValue);
 };

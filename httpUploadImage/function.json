@@ -21,6 +21,13 @@
       "collectionName": "image",
       "createIfNotExists": false,
       "connectionStringSetting": "COSMOS_CONNECTION_STRING"
+    },
+    {
+      "type": "serviceBus",
+      "direction": "out",
+      "connection": "emilstazure101_SERVICEBUS",
+      "name": "outputThumbnailMessage",
+      "queueName": "thumbnailqueue"
     }
   ],
   "scriptFile": "../dist/httpUploadImage/index.js"
