@@ -10,10 +10,14 @@ const httpTrigger: AzureFunction = async function (
 ): Promise<any> {
   context.log("Uploading image");
 
-  if (req.headers["content-type"] != "application/octet-stream")
+  if (req.headers["content-type"] != "application/octet-stream") {
+    context.log.warn(
+      `Got upload request with invalid content-type "${req.headers["content-type"]}"`
+    );
     return jsonResponse(400, {
       error: "Invalid content type (must be application/octet-stream)",
     });
+  }
 
   const id = uuid.v4();
   const body = req.body as Buffer;
@@ -24,7 +28,14 @@ const httpTrigger: AzureFunction = async function (
     `${id}.jpg`
   );
 
-  await blobClient.uploadData(body);
+  try {
+    await blobClient.uploadData(body);
+  } catch (err) {
+    context.log.error("Internal server error when storing image");
+    return jsonResponse(500, {
+      error: "Internal server error when storing image",
+    });
+  }
 
   const returnValue: ImageDbItemType = { id, uri: blobClient.url };
 
