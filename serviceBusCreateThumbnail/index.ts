@@ -39,16 +39,16 @@ const serviceBusQueueTrigger: AzureFunction = async function (
 
   context.log("Updating cosmos db");
   const cosmosClient = new CosmosClient(process.env.COSMOS_CONNECTION_STRING);
-  const item = cosmosClient
+  const itemResponse = await cosmosClient
     .database("imageApp")
     .container("image")
-    .item(id, id);
+    .item(id, id)
+    .read<ImageDbItemType>();
 
-  const { resource: doc } = await item.read<ImageDbItemType>();
-
-  doc.thumbnail = thumbnailBlobClient.url;
-
-  await item.replace<ImageDbItemType>(doc);
+  context.bindings.outputDocument = {
+    ...itemResponse.resource,
+    thumbnail: thumbnailBlobClient.url,
+  };
 };
 
 export default serviceBusQueueTrigger;
