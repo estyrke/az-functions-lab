@@ -27,7 +27,8 @@ jobs:
           cache: "npm"
       - run: npm i
       - run: npm run build
-      - name: "Run Azure Functions Action"
+      - name: "Deploy Azure Functions"
+        if: ${{matrix.node-version == '14.x' }} # Only deploy the Node 14 build.
         uses: Azure/functions-action@v1
         id: fa
         with:
