@@ -5,12 +5,7 @@ type JokeResponse = {
 };
 
 const jokes = [
-  "Hur ser man att en bil kommer från Tyskland? - Det Germany'nte",
-  "Hur ser man att en bil kommer från Frankrike? - På vindruvetorkarna",
-  "Det var en bonde som inte hade någon hink, istället hade han en katt som spann.",
-  "Varför kan inte blinda programmera? - Dom kan ju inte C.",
-  "Hur känner man igen en äkta Nintendo-nörd? - Han dricker NESCafé med 8 bitar socker.",
-  "Hur låter ett spökfår? - Varken bu eller bä",
+  "I was wondering why the frisbee kept getting bigger and bigger, but then it hit me.",
 ];
 
 const randomElement = <T>(array: T[]) =>
